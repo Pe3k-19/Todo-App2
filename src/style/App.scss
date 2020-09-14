@@ -1,0 +1,37 @@
+// Variables
+$color-main: rgb(218, 185, 4);
+$color-secondary: rgb(214, 203, 203);
+$color-box: #fbfcd4;
+
+.enviroment {
+  background: $color-secondary;
+  padding: 100px 0px 100px 0px;
+  height: auto;
+}
+.container {
+  width: 80%;
+  margin-left: 10%;
+  padding-top: 20px;
+  border: 2px solid lighten($color-secondary, 50%);
+  border-radius: 10px;
+  background: $color-box;
+  h1 {
+    color: $color-main;
+    font-size: 40px;
+    text-align: center;
+  }
+}
+.table {
+  width: 80%;
+  margin-left: 10%;
+  a {
+    color: red;
+  }
+}
+.navigation {
+  width: 80%;
+  margin-left: 10%;
+  Button {
+    margin: 5px 20px 20px 0px;
+  }
+}
