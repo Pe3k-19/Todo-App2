@@ -17,21 +17,6 @@ const pool = mariadb.createPool({
 });
 
 
-// const updateTask = (id, text) => {
-//     pool.getConnection()
-//         .then(conn => {
-//         conn.query(`UPDATE ulohy SET name = '${text}' WHERE id = ${id}`)
-//         })
-// }
-
-// const deleteTask = (id) => {
-//     pool.getConnection()
-//     .then(conn => {
-//         conn.query(`DELETE FROM ulohy WHERE id = ${id}`)
-//     })
-// }
-
-
 // --------------------     GET   --------------------------
 
 app.get('/data', (req, res) => {
@@ -44,40 +29,6 @@ app.get('/data', (req, res) => {
 app.get('/', (req, res) => {
     res.send('Hello');
   });
-
- 
-// app.get('/data/:id', (req, res) => {
-//     return pool.query('SELECT * FROM ulohy')
-//         .then(result => {
-//             const task = result.find(task => task.id === parseInt(req.params.id));
-//             res.json(task);
-//         });
-// })
-    // const task = localDatabase.find(task => task.id === parseInt(req.params.id));
-    // if (!task) return res.status(404).send('Uloha sa nenasla')
-    // res.send(task);
-
-// app.get('/tasks', (req, res) => {
-//     // res.json([{
-//     //     id: 1,
-//     //     name: "Hiccup",
-//     //     password: 'hiccup'
-//     //   }, {
-//     //     id: 2,
-//     //     name: "King Arthur",
-//     //     password: 'king-arthur'
-//     //   }]);
-//     console.log(getTask())
-//     // res.json(getTask())
-// });
-
-
-// app.get('/tasks/:id', (req, res) => {
-//     const task = localDatabase.find(task => task.id === parseInt(req.params.id));
-//     if (!task) return res.status(404).send('Uloha sa nenasla')
-//     res.send(task);
-// });
-
 
 
 // --------------------     POST   --------------------------
@@ -96,35 +47,50 @@ app.post('/', (req, res) => {
 });
 
 
+// ------------------------  UPDATE  ----------------------------
 
-// ------------------------  PUT  ----------------------------
-
-// updateTask(5, "update");
-
-
-// app.put('/put/:id', (req, res) => {
-//     const task = localDatabase.find(task => task.id === parseInt(req.params.id));
-//     if (!task) return res.status(404).send('Uloha sa nenasla')
-
-
-//     const { error } = validateTask(req.body);
-//     if (error) return res.status(400).send(error.details[0].message);
-
-//     task.name = req.body.name;
-//     res.send(task);
-// });
+app.put('/update/:id', (req, res) => {
+    pool.getConnection()
+    .then(conn => {
+        if(req.body.newId === "" || req.body.newData === '') {console.log("Prazdne pole")
+} else {
+        conn.query(`UPDATE ulohy SET title = '${req.body.newData}' WHERE id = ${req.body.newId}`)
+    }
+})
+});
 
 // ------------------------  DELETE  ----------------------------
 
-app.delete('/delete/:title', (req, res) => {
+app.delete('/delete/:id', (req, res) => {
     pool.getConnection()
         .then(conn => {
-            if(req.body.newData === "") {console.log("Prazdne pole")
+            if(req.body.newId === "") {console.log("Prazdne pole")
     } else {
-            conn.query(`DELETE FROM ulohy WHERE title = "${req.body.newData}"`)
+            conn.query(`DELETE FROM ulohy WHERE id = "${req.body.newId}"`)
         }
     })
 });
+
+
+//   -----------------------------SEARCH   ----------------------------
+
+app.post('/search', (req, res) => {
+    
+    pool.getConnection()
+    .then(conn => {
+        if(req.body.newData === "") {console.log("Prazdne pole")
+    } else {
+
+                conn.query(`SELECT * FROM ulohy WHERE title = '${req.body.newData}'`
+                )
+                .then(result => {
+                    res.json(result);
+                    // console.log(result)
+                });}
+           
+            })  
+});
+
 
 //  -----------------------  VALIDACIA  ------------------------
 

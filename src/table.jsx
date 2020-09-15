@@ -10,6 +10,10 @@ export default function MyTable(props) {
 
   const columns = [
     {
+      title: "Id",
+      dataIndex: "id",
+    },
+    {
       title: "Task Title",
       dataIndex: "title",
     }
@@ -17,13 +21,10 @@ export default function MyTable(props) {
 
   return (
     <div>
-      <Table columns={columns} align="center" dataSource={props.tableData} className="table"/>
+  <Table columns={columns} rowKey='id' dataSource={props.tableData} className="table"/>
       <div className="navigation">
         <Form  style={{textAlign:'center'}} >
-          <Form.Item label="Task" name="task">
-            <Input name="name" id="dataName" value={props.newData} onChange={(event) => props.onChangeForm(event)} />
-          </Form.Item>
-          <Button
+        <Button
           type="primary"
           icon={<DownloadOutlined />}
           size="normal"
@@ -31,12 +32,22 @@ export default function MyTable(props) {
         >
           Get Task
         </Button>
-          <Button id="putBtn" onClick={() => console.log("update")}>
+        <Button id="putBtn" onClick={() => props.onChangeSearchData()}>
           Search Task
         </Button>
+          <Form.Item label="Task" name="task">
+            <Input name="name" id="dataName" value={props.newData} onChange={(event) => props.onChangeTask(event)} />
+          </Form.Item>
+          <Form.Item label="Id" name="taskId">
+          <Input name="id" id="dataId" value={props.newId} onChange={(event) => props.onChangeId(event)} />
+          </Form.Item>
+        
           <Button type="primary" onClick={() => props.onChangePostData()}>
            Add Task
           </Button>
+          <Button id="putBtn" onClick={() => props.onChangeUpdateData()}>
+          Update Task
+        </Button>
           <Button danger onClick={() => props.onChangeDeleteData()}>
            Delete Task
           </Button>
