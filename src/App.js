@@ -10,7 +10,7 @@ function App() {
   const [rows, setRows] = useState("");
   const [newData, setNewData] = useState("");
   const [newId, setNewId] = useState("");
-  const [alertMessage, setAlertMessage] = useState('');
+  const [alertMessage, setAlertMessage] = useState("");
   // const [alertType, setAlertType] = useState('success');
 
   useEffect(() => {
@@ -32,36 +32,33 @@ function App() {
 
   //   ----------------------------------   GET    -----------------------------
 
-//   const handleGetData = () => {
-//     async function getData(url='') {
-//       const response = await fetch(url, {
-//         method: "GET",
-//         headers: {
-//           "Content-Type": "application/json",
-//         }
-//       })
-// return response.json();
-// }
-//     getData("http://localhost:5000/data")
-//       .then((data) => setRows(data))
+  //   const handleGetData = () => {
+  //     async function getData(url='') {
+  //       const response = await fetch(url, {
+  //         method: "GET",
+  //         headers: {
+  //           "Content-Type": "application/json",
+  //         }
+  //       })
+  // return response.json();
+  // }
+  //     getData("http://localhost:5000/data")
+  //       .then((data) => setRows(data))
 
-//       .catch((err) => {
-//         setAlertMessage(<Alert message={err} type="error" showIcon style={{marginBottom: '20px'}} />)
-//       });
-//       setAlertMessage('')
-//   };
+  //       .catch((err) => {
+  //         setAlertMessage(<Alert message={err} type="error" showIcon style={{marginBottom: '20px'}} />)
+  //       });
+  //       setAlertMessage('')
+  //   };
 
-//  -----------------------------------   GET  AXIOS   ------------------------------
-const handleGetData = () => {
-  async function getData() {
-    const response = await axios.get('http://localhost:5000/data');
-return response;
-}
-getData()
-.then(res =>
-  setRows(res.data)
-)
-}
+  //  -----------------------------------   GET  AXIOS   ------------------------------
+  const handleGetData = () => {
+    async function getData() {
+      const response = await axios.get("http://localhost:5000/data");
+      return response;
+    }
+    getData().then((res) => setRows(res.data));
+  };
 
   //  ----------------------------------   POST    ----------------------------
 
@@ -88,18 +85,15 @@ getData()
   //     });
   // };
 
-   //  ----------------------------------   POST  AXIOS   ----------------------------
+  //  ----------------------------------   POST  AXIOS   ----------------------------
 
-   const handlePostData = () => {
-     async function postData(url = "", data = {}) {
-       const response = await axios.post('http://localhost:5000', {newData})
-       return response;
-     }
-     postData()
-     .then(data =>
-      console.log(data))
-   }
-
+  const handlePostData = () => {
+    async function postData(url = "", data = {}) {
+      const response = await axios.post("http://localhost:5000", { newData });
+      return response;
+    }
+    postData().then((data) => console.log(data));
+  };
 
   //  ----------------------------------   UPDATE  ----------------------------
 
@@ -124,20 +118,21 @@ getData()
   //     .catch((error) => {
   //       setAlertMessage(<Alert message={error} type="error" showIcon style={{marginBottom: '20px'}} />)
   //     });
-      
+
   // };
 
   //  ----------------------------------   UPDATE  AXIOS  ----------------------------
 
-const handleUpdateData = () => {
-  async function updateData(url='', data ={}) {
-  const response = await axios.post('http://localhost:5000/update/:id', {newId, newData})
-return response.json();
-}
-updateData()
-.then(data => console.log(data))
-}
-
+  const handleUpdateData = () => {
+    async function updateData(url = "", data = {}) {
+      const response = await axios.post("http://localhost:5000/update/:id", {
+        newId,
+        newData,
+      });
+      return response.json();
+    }
+    updateData().then((data) => console.log(data));
+  };
 
   //  ----------------------------------   DELETE   --------------------------------
 
@@ -158,22 +153,23 @@ updateData()
   //     .then((data) => {
   //       console.log(data);
   //     })
-      
+
   //     .catch((error) => {
   //       setAlertMessage(<Alert message={error} type="error" showIcon style={{marginBottom: '20px'}} />)
   //     });
   // };
 
-//  ----------------------------------   DELETE   AXIOS   --------------------------------
+  //  ----------------------------------   DELETE   AXIOS   --------------------------------
 
-const handleDeleteData = () => {
-  async function deleteData(url='', data={}) {
-const response = await axios.post('http://localhost:5000/delete/:id', {newId})
-return response;
-  }
-  deleteData()
-  .then(data => console.log(data))
-}
+  const handleDeleteData = () => {
+    async function deleteData(url = "", data = {}) {
+      const response = await axios.post("http://localhost:5000/delete/:id", {
+        newId,
+      });
+      return response;
+    }
+    deleteData().then((data) => console.log(data));
+  };
 
   //  ------------------------------------   SEARCH   ---------------------------------------
 
@@ -200,16 +196,17 @@ return response;
   //     });
   // };
 
-   //  ------------------------------------   SEARCH   ---------------------------------------
+  //  ------------------------------------   SEARCH   ---------------------------------------
 
-   const handleSearchData = () => {
-     async function searchData(url='', data={}) {
-const response = await axios.post('http://localhost:5000/search', {newData})
-return response;
-     }
-     searchData()
-     .then(data => setRows(data.data))
-   }
+  const handleSearchData = () => {
+    async function searchData(url = "", data = {}) {
+      const response = await axios.post("http://localhost:5000/search", {
+        newData,
+      });
+      return response;
+    }
+    searchData().then((data) => setRows(data.data));
+  };
 
   // ---------------------------------------------------------------------
   return (
