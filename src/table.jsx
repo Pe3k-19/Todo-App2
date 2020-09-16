@@ -52,6 +52,7 @@ export default function MyTable(props) {
            Delete Task
           </Button>
         </Form>
+        {/* {props.alertMessage} */}
       </div>
       {/* {console.log(rows)} */}
     </div>

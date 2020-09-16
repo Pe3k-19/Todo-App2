@@ -49,7 +49,7 @@ app.post('/', (req, res) => {
 
 // ------------------------  UPDATE  ----------------------------
 
-app.put('/update/:id', (req, res) => {
+app.post('/update/:id', (req, res) => {
     pool.getConnection()
     .then(conn => {
         if(req.body.newId === "" || req.body.newData === '') {console.log("Prazdne pole")
@@ -61,7 +61,7 @@ app.put('/update/:id', (req, res) => {
 
 // ------------------------  DELETE  ----------------------------
 
-app.delete('/delete/:id', (req, res) => {
+app.post('/delete/:id', (req, res) => {
     pool.getConnection()
         .then(conn => {
             if(req.body.newId === "") {console.log("Prazdne pole")
