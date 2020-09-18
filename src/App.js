@@ -24,12 +24,6 @@ function App() {
     setNewId(event.target.value);
   };
 
-  // const alertMessageFunc = () => {
-  //  return (
-  //   <Alert message={alertMessage} type={alertType} showIcon style={{marginBottom: '20px'}} />
-  //  )
-  // }
-
   //   ----------------------------------   GET    -----------------------------
 
   //   const handleGetData = () => {
@@ -57,7 +51,12 @@ function App() {
       const response = await axios.get("http://localhost:5000/data");
       return response;
     }
-    getData().then((res) => setRows(res.data));
+    getData()
+      .then((res) => setRows(res.data))
+      .catch((error) => {
+        console.log(error);
+      });
+    setAlertMessage("");
   };
 
   //  ----------------------------------   POST    ----------------------------
@@ -89,10 +88,44 @@ function App() {
 
   const handlePostData = () => {
     async function postData(url = "", data = {}) {
-      const response = await axios.post("http://localhost:5000", { newData });
+      const response = await axios.post("http://localhost:5000/post", {
+        newData,
+      });
+
       return response;
     }
-    postData().then((data) => console.log(data));
+    postData()
+      .then((data) => console.log("Post empty"))
+      .catch((error) => {
+        console.log(error);
+      });
+    if (newData === "") {
+      setAlertMessage(
+        <Alert
+          message="Prázdne pole Task"
+          type="error"
+          showIcon
+          style={{
+            margin: "20px",
+            borderRadius: "5px",
+            textAlign: "center",
+          }}
+        />
+      );
+    } else {
+      setAlertMessage(
+        <Alert
+          message="Dáta pridané"
+          type="success"
+          showIcon
+          style={{
+            margin: "20px",
+            borderRadius: "5px",
+            textAlign: "center",
+          }}
+        />
+      );
+    }
   };
 
   //  ----------------------------------   UPDATE  ----------------------------
@@ -129,9 +162,40 @@ function App() {
         newId,
         newData,
       });
-      return response.json();
+      return response;
     }
-    updateData().then((data) => console.log(data));
+    updateData()
+      .then((data) => console.log("Update empty"))
+      .catch((error) => {
+        console.log(error);
+      });
+    if (newData === "" || newId === "") {
+      setAlertMessage(
+        <Alert
+          message="Vyplňte všetky polia"
+          type="error"
+          showIcon
+          style={{
+            margin: "20px",
+            borderRadius: "5px",
+            textAlign: "center",
+          }}
+        />
+      );
+    } else {
+      setAlertMessage(
+        <Alert
+          message="Dáta zmenené"
+          type="success"
+          showIcon
+          style={{
+            margin: "20px",
+            borderRadius: "5px",
+            textAlign: "center",
+          }}
+        />
+      );
+    }
   };
 
   //  ----------------------------------   DELETE   --------------------------------
@@ -168,7 +232,38 @@ function App() {
       });
       return response;
     }
-    deleteData().then((data) => console.log(data));
+    deleteData()
+      .then((data) => console.log("delete empty"))
+      .catch((error) => {
+        console.log(error);
+      });
+    if (newId === "") {
+      setAlertMessage(
+        <Alert
+          message="Vyplňte pole Id"
+          type="error"
+          showIcon
+          style={{
+            margin: "20px",
+            borderRadius: "5px",
+            textAlign: "center",
+          }}
+        />
+      );
+    } else {
+      setAlertMessage(
+        <Alert
+          message="Dáta vymazané"
+          type="success"
+          showIcon
+          style={{
+            margin: "20px",
+            borderRadius: "5px",
+            textAlign: "center",
+          }}
+        />
+      );
+    }
   };
 
   //  ------------------------------------   SEARCH   ---------------------------------------
@@ -205,7 +300,34 @@ function App() {
       });
       return response;
     }
-    searchData().then((data) => setRows(data.data));
+    searchData()
+      .then((data) => {
+        if (data.data.length === 0 && newData === "") {
+          console.log("search empty");
+        } else {
+          setRows(data.data);
+        }
+      })
+
+      .catch((error) => {
+        console.log(error);
+      });
+    if (newData === "") {
+      setAlertMessage(
+        <Alert
+          message="Vyplňte pole Task"
+          type="error"
+          showIcon
+          style={{
+            margin: "20px",
+            borderRadius: "5px",
+            textAlign: "center",
+          }}
+        />
+      );
+    } else {
+      setAlertMessage("");
+    }
   };
 
   // ---------------------------------------------------------------------
@@ -229,7 +351,7 @@ function App() {
             onChangeDeleteData={handleDeleteData}
             onChangeSearchData={handleSearchData}
           />
-          {alertMessage}
+          <div>{alertMessage}</div>
         </div>
         {/* {console.log(typeof newData)} */}
       </div>

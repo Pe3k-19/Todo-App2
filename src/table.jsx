@@ -64,10 +64,8 @@ export default function MyTable(props) {
           <Button danger onClick={() => props.onChangeDeleteData()}>
             Delete Task
           </Button>
-        </Form>
-        {/* {props.alertMessage} */}
+        </Form>     
       </div>
-      {/* {console.log(rows)} */}
     </div>
   );
 }

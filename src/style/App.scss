@@ -9,8 +9,8 @@ $color-box: #fbfcd4;
   height: auto;
 }
 .container {
-  width: 80%;
-  margin-left: 10%;
+  width: 70%;
+  margin-left: 15%;
   padding-top: 20px;
   border: 2px solid lighten($color-secondary, 50%);
   border-radius: 10px;
@@ -24,9 +24,6 @@ $color-box: #fbfcd4;
 .table {
   width: 80%;
   margin-left: 10%;
-  a {
-    color: red;
-  }
 }
 .navigation {
   width: 80%;
