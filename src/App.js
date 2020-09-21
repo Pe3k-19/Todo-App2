@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-import "./style/App.css";
-import MyTable from "./table";
-import { Alert } from "antd";
 import axios from "axios";
+import "./style/App.css";
+import { Alert } from "antd";
+import MyTable from "./table";
 
 function App() {
   //              HOOKS
@@ -12,6 +12,19 @@ function App() {
   const [newId, setNewId] = useState("");
   const [alertMessage, setAlertMessage] = useState("");
   // const [alertType, setAlertType] = useState('success');
+
+  const handleGetData = () => {
+    async function getData() {
+      const response = await axios.get("http://localhost:5000/data");
+      return response;
+    }
+    getData()
+      .then((res) => setRows(res.data))
+      .catch((error) => {
+        console.log(error);
+      });
+    setAlertMessage("");
+  };
 
   useEffect(() => {
     handleGetData();
@@ -40,24 +53,13 @@ function App() {
   //       .then((data) => setRows(data))
 
   //       .catch((err) => {
-  //         setAlertMessage(<Alert message={err} type="error" showIcon style={{marginBottom: '20px'}} />)
+  //         setAlertMessage(
+  // <Alert message={err} type="error" showIcon style={{ marginBottom: '20px' }} />)
   //       });
   //       setAlertMessage('')
   //   };
 
   //  -----------------------------------   GET  AXIOS   ------------------------------
-  const handleGetData = () => {
-    async function getData() {
-      const response = await axios.get("http://localhost:5000/data");
-      return response;
-    }
-    getData()
-      .then((res) => setRows(res.data))
-      .catch((error) => {
-        console.log(error);
-      });
-    setAlertMessage("");
-  };
 
   //  ----------------------------------   POST    ----------------------------
 
@@ -80,14 +82,15 @@ function App() {
   //     })
 
   //     .catch((error) => {
-  //       setAlertMessage(<Alert message={error} type="error" showIcon style={{marginBottom: '20px'}} />)
+  //       setAlertMessage(
+  // <Alert message={error} type="error" showIcon style={{ marginBottom: '20px' }} />)
   //     });
   // };
 
   //  ----------------------------------   POST  AXIOS   ----------------------------
 
   const handlePostData = () => {
-    async function postData(url = "", data = {}) {
+    async function postData() {
       const response = await axios.post("http://localhost:5000/post", {
         newData,
       });
@@ -95,7 +98,7 @@ function App() {
       return response;
     }
     postData()
-      .then((data) => console.log("Post empty"))
+      .then((data) => console.log("Post empty", data.data))
       .catch((error) => {
         console.log(error);
       });
@@ -157,7 +160,7 @@ function App() {
   //  ----------------------------------   UPDATE  AXIOS  ----------------------------
 
   const handleUpdateData = () => {
-    async function updateData(url = "", data = {}) {
+    async function updateData() {
       const response = await axios.post("http://localhost:5000/update/:id", {
         newId,
         newData,
@@ -165,7 +168,7 @@ function App() {
       return response;
     }
     updateData()
-      .then((data) => console.log("Update empty"))
+      .then((data) => console.log("Update empty", data.data))
       .catch((error) => {
         console.log(error);
       });
@@ -226,14 +229,14 @@ function App() {
   //  ----------------------------------   DELETE   AXIOS   --------------------------------
 
   const handleDeleteData = () => {
-    async function deleteData(url = "", data = {}) {
+    async function deleteData() {
       const response = await axios.post("http://localhost:5000/delete/:id", {
         newId,
       });
       return response;
     }
     deleteData()
-      .then((data) => console.log("delete empty"))
+      .then((data) => console.log("delete empty", data.data))
       .catch((error) => {
         console.log(error);
       });
@@ -294,7 +297,7 @@ function App() {
   //  ------------------------------------   SEARCH   ---------------------------------------
 
   const handleSearchData = () => {
-    async function searchData(url = "", data = {}) {
+    async function searchData() {
       const response = await axios.post("http://localhost:5000/search", {
         newData,
       });
