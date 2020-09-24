@@ -13,6 +13,17 @@ function App() {
   const [alertMessage, setAlertMessage] = useState("");
   // const [alertType, setAlertType] = useState('success');
 
+  useEffect(() => {
+    handleGetData();
+  }, []);
+
+  const handleChangeTask = (event) => {
+    setNewData(event.target.value);
+  };
+  const handleChangeId = (event) => {
+    setNewId(event.target.value);
+  };
+
   const handleGetData = () => {
     async function getData() {
       const response = await axios.get("http://localhost:5000/data");
@@ -25,18 +36,6 @@ function App() {
       });
     setAlertMessage("");
   };
-
-  useEffect(() => {
-    handleGetData();
-  }, []);
-
-  const handleChangeTask = (event) => {
-    setNewData(event.target.value);
-  };
-  const handleChangeId = (event) => {
-    setNewId(event.target.value);
-  };
-
   //   ----------------------------------   GET    -----------------------------
 
   //   const handleGetData = () => {
